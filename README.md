@@ -247,4 +247,220 @@ class ArmstrongNumberCheck
 
 ---
 
-Feel free to copy and paste these examples into your GitHub repository's README or any other markdown file to showcase your C# programs.
+## 6. Avoiding Deadlocks
+
+### Description
+A deadlock occurs when two or more threads are blocked forever, waiting for each other. Avoiding deadlocks involves careful resource allocation and using proper synchronization techniques.
+
+### Program
+
+```csharp
+using System;
+using System.Threading;
+
+class AvoidDeadlock
+{
+    private static readonly object lock1 = new object();
+    private static readonly object lock2 = new object();
+
+    static void Main()
+    {
+        Thread t1 = new Thread(Method1);
+        Thread t2 = new Thread(Method2);
+
+        t1.Start();
+        t2.Start();
+
+        t1.Join();
+        t2.Join();
+
+        Console.WriteLine("Finished without deadlocks.");
+    }
+
+    static void Method1()
+    {
+        lock (lock1)
+        {
+            Console.WriteLine("Thread 1 acquired lock1");
+            Thread.Sleep(100);
+
+            lock (lock2)
+            {
+                Console.WriteLine("Thread 1 acquired lock2");
+            }
+        }
+    }
+
+    static void Method2()
+    {
+        lock (lock1)
+        {
+            Console.WriteLine("Thread 2 acquired lock1");
+            Thread.Sleep(100);
+
+            lock (lock2)
+            {
+                Console.WriteLine("Thread 2 acquired lock2");
+            }
+        }
+    }
+}
+```
+
+---
+
+## 7. Factorial
+
+### Description
+The factorial of a non-negative integer \( n \) is the product of all positive integers less than or equal to \( n \). It is denoted as \( n! \).
+
+### Program
+
+```csharp
+using System;
+
+class Factorial
+{
+    static void Main()
+    {
+        Console.Write("Enter a number to calculate its factorial: ");
+        if (int.TryParse(Console.ReadLine(), out int number) && number >= 0)
+        {
+            Console.WriteLine("Factorial of {0} is {1}", number, CalculateFactorial(number));
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid non-negative integer.");
+        }
+    }
+
+    static long CalculateFactorial(int number)
+    {
+        if (number == 0 || number == 1)
+        {
+            return 1;
+        }
+
+        long factorial = 1;
+        for (int i = 2; i <= number; i++)
+        {
+            factorial *= i;
+        }
+
+        return factorial;
+    }
+}
+```
+
+---
+
+## 8. Reversing Strings
+
+### Description
+Reversing a string involves rearranging its characters in the opposite order.
+
+### Program
+
+```csharp
+using System;
+
+class ReverseString
+{
+    static void Main()
+    {
+        Console.Write("Enter a string to reverse: ");
+        string input = Console.ReadLine();
+
+        string reversed = Reverse(input);
+        Console.WriteLine("Reversed string: {0}", reversed);
+    }
+
+    static string Reverse(string input)
+    {
+        char[] charArray = input.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
+    }
+}
+```
+
+---
+
+## 9. Removing Repeated Elements from an Array
+
+### Description
+Removing repeated elements from an array involves creating a new array that contains only unique elements from the original array.
+
+### Program
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class RemoveDuplicates
+{
+    static void Main()
+    {
+        int[] array = { 1, 2, 3, 1, 2, 4, 5, 6, 4 };
+        int[] uniqueArray = RemoveDuplicatesFromArray(array);
+
+        Console.WriteLine("Array with duplicates removed: {0}", string.Join(", ", uniqueArray));
+    }
+
+    static int[] RemoveDuplicatesFromArray(int[] array)
+    {
+        HashSet<int> uniqueElements = new HashSet<int>(array);
+        return new int[uniqueElements.Count];
+    }
+}
+```
+
+---
+
+## 10. Printing Patterns
+
+### Description
+Printing patterns involves creating various designs or shapes using characters like `*`, spaces, or numbers. Below is an example of printing a pyramid pattern.
+
+### Program
+
+```csharp
+using System;
+
+class PrintPatterns
+{
+    static void Main()
+    {
+        Console.Write("Enter the number of rows for the pyramid: ");
+        if (int.TryParse(Console.ReadLine(), out int rows) && rows > 0)
+        {
+            PrintPyramid(rows);
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid positive integer.");
+        }
+    }
+
+    static void PrintPyramid(int rows)
+    {
+        for (int i = 1; i <= rows; i++)
+        {
+            for (int j = rows; j > i; j--)
+            {
+                Console.Write(" ");
+            }
+
+            for (int k = 1; k <= (2 * i - 1); k++)
+            {
+                Console.Write("*");
+            }
+
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+---
+
